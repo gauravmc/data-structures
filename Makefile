@@ -1,4 +1,4 @@
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+CFLAGS=-g -O2 -Wall -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
 LDLIBS=-ldl $(OPTLIBS)
 PREFIX?=/usr/local
 
@@ -14,7 +14,7 @@ SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 # The Target Build
 all: $(TARGET) $(SO_TARGET) tests
 
-dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
+dev: CFLAGS=-g -Wall -Wextra -Isrc $(OPTFLAGS)
 dev: all
 
 $(TARGET): CFLAGS += -fPIC
@@ -31,8 +31,8 @@ build:
 
 # The Unit Tests
 .PHONY: tests
-tests: CFLAGS += $(TARGET)
-tests: $(TESTS)
+tests:
+	$(CC) $(CFLAGS) $(TEST_SRC) $(LDLIBS) -o $(TESTS) $(TARGET)
 	sh ./tests/runtests.sh
 
 valgrind:
