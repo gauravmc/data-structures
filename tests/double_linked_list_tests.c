@@ -1,12 +1,14 @@
 #include "minunit.h"
+#include <double_linked_list.h>
 
-char *test_something() {
-  mu_assert(5 == 5, "should be true");
+char *test_create() {
+  List *list = List_create();
+  mu_assert(list != NULL, "list should not be NULL");
   return NULL;
 }
 
 char *all_tests() {
-  mu_run_test(test_something);
+  mu_run_test(test_create);
 
   return NULL;
 }
