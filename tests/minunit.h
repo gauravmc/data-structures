@@ -6,28 +6,22 @@
 #include <lib/debug.h>
 #include <stdlib.h>
 
-#define mu_suite_start() char *message = NULL
+#define log_failure(M, ...) fprintf(stderr, "[FAILED] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
-#define mu_assert(test, message) if (!(test)) { log_err(message); return message; }
-#define mu_run_test(test) debug("\n-----%s", " " #test); \
+char *message = NULL;
+int tests_run;
+
+#define mu_assert(test, message) if (!(test)) { log_failure(message); return message; }
+#define mu_run_test(test) \
     message = test(); tests_run++; if (message) return message;
 
-#define RUN_TESTS(name) int main(int argc, char *argv[]) {\
-    argc = 1; \
-    debug("----- RUNNING: %s", argv[0]);\
-        printf("----\nRUNNING: %s\n", argv[0]);\
-        char *result = name();\
-        if (result != 0) {\
-            printf("FAILED: %s\n", result);\
-        }\
-        else {\
-            printf("ALL TESTS PASSED\n");\
-        }\
-    printf("Tests run: %d\n", tests_run);\
-        exit(result != 0);\
+#define RUN_TESTS(name) int main() {\
+  char *result = name();\
+  if (result == 0) {\
+    printf("ALL TESTS PASSED\n");\
+  }\
+  printf("Tests run: %d\n", tests_run);\
+  exit(result != 0);\
 }
-
-
-int tests_run;
 
 #endif
