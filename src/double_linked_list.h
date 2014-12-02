@@ -11,8 +11,11 @@ typedef struct {
   int count;
   ListNode *first;
   ListNode *last;
+
+  void (*push)(void *self, void *value);
 } List;
 
+void List_push();
 List *List_create();
 
 #endif

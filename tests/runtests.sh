@@ -7,6 +7,8 @@ do
     if $VALGRIND ./$i 2>> tests/tests.log
     then
       echo $i PASS
+      echo "------"
+      tail tests/tests.log
     else
       echo "------"
       tail tests/tests.log
