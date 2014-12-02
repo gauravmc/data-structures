@@ -15,7 +15,7 @@ typedef struct {
   void (*push)(void *self, void *value);
 } List;
 
-void List_push();
+void List_push(void *self, void *value);
 List *List_create();
 
 #endif
