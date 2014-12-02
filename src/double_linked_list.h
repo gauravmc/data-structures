@@ -1,7 +1,7 @@
 #ifndef _List_h
 #define _List_h
 
-typedef struct {
+typedef struct ListNode {
   struct ListNode *next;
   struct ListNode *prev;
   void *value;
