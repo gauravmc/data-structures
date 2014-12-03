@@ -1,16 +1,16 @@
 #ifndef _List_h
 #define _List_h
 
-typedef struct ListNode {
-  struct ListNode *next;
-  struct ListNode *prev;
+typedef struct Node {
+  struct Node *next;
+  struct Node *prev;
   void *value;
-} ListNode;
+} Node;
 
 typedef struct {
   int count;
-  ListNode *first;
-  ListNode *last;
+  Node *first;
+  Node *last;
 
   void (*push)(void *self, void *value);
   void *(*pop)(void *self);

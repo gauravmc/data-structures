@@ -4,7 +4,7 @@
 
 void List_push(void *self, void *value) {
   List *list = self;
-  ListNode *node = malloc(sizeof(ListNode));
+  Node *node = malloc(sizeof(Node));
   node->value = value;
 
   if(list->count == 0) {
@@ -22,7 +22,7 @@ void *List_pop(void *self) {
   List *list = self;
 
   if(list->count > 0) {
-    ListNode *old_last = list->last;
+    Node *old_last = list->last;
 
     if(list->count > 1) {
       list->last = old_last->prev;
