@@ -4,14 +4,23 @@
 char *test_create() {
   List *list = List_create();
   mu_assert(list != NULL, "list should not be NULL");
+  mu_assert(list->first == NULL, "did not get expected value");
+  mu_assert(list->last == NULL, "did not get expected value");
+  mu_assert(list->count == 0, "did not get expected value");
   return NULL;
 }
 
 char *test_list_push_value_to_blank_list() {
   List *list = List_create();
   char *value = "foobar";
+
   list->push(list, value);
-  mu_assert(list->last->value == value, "last node's value does not match pushed value");
+
+  mu_assert(list->last->value == value, "did not get expected value");
+  mu_assert(list->first->value == value, "did not get expected value");
+  mu_assert(list->last->next == NULL, "did not get expected value");
+  mu_assert(list->last->prev == NULL, "did not get expected value");
+  mu_assert(list->count == 1, "did not get expected value");
 
   return NULL;
 }

@@ -4,7 +4,7 @@
 
 void List_push(void *self, void *value) {
   List *list = self;
-  Node *node = malloc(sizeof(Node));
+  Node *node = Node_create();
   node->value = value;
 
   if(list->count == 0) {
@@ -42,8 +42,17 @@ void *List_pop(void *self) {
 
 List *List_create() {
   List *list = malloc(sizeof(List));
+  list->first = list->last = NULL;
   list->count = 0;
   list->push = List_push;
   list->pop = List_pop;
+
   return list;
+}
+
+Node *Node_create() {
+  Node *node = malloc(sizeof(Node));
+  node->prev = node->next = NULL;
+
+  return node;
 }
