@@ -13,9 +13,11 @@ typedef struct {
   ListNode *last;
 
   void (*push)(void *self, void *value);
+  void *(*pop)(void *self);
 } List;
 
 void List_push(void *self, void *value);
+void *List_pop(void *self);
 List *List_create();
 
 #endif
