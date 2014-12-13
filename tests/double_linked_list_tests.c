@@ -4,9 +4,9 @@
 char *test_create() {
   List *list = List_create();
   mu_assert(list != NULL, "list should not be NULL");
-  mu_assert(list->first == NULL, "did not get expected value");
-  mu_assert(list->last == NULL, "did not get expected value");
-  mu_assert(list->count == 0, "did not get expected value");
+  mu_assert_equal(NULL, list->first);
+  mu_assert_equal(NULL, list->last);
+  mu_assert_equal(0, list->count);
   return NULL;
 }
 
@@ -16,11 +16,11 @@ char *test_list_push_value_to_blank_list() {
 
   list->push(list, value);
 
-  mu_assert(list->last->value == value, "did not get expected value");
-  mu_assert(list->first->value == value, "did not get expected value");
-  mu_assert(list->last->next == NULL, "did not get expected value");
-  mu_assert(list->last->prev == NULL, "did not get expected value");
-  mu_assert(list->count == 1, "did not get expected value");
+  mu_assert_equal(value, list->last->value);
+  mu_assert_equal(value, list->first->value);
+  mu_assert_equal(NULL, list->last->next);
+  mu_assert_equal(NULL, list->last->prev);
+  mu_assert_equal(1, list->count);
 
   return NULL;
 }
@@ -32,10 +32,10 @@ char *test_push_multiple_values() {
   list->push(list, "bar");
   list->push(list, "baz");
 
-  mu_assert(list->last->value == "baz", "did not get expected value");
-  mu_assert(list->first->value == "foo", "did not get expected value");
-  mu_assert(list->last->prev->value == "bar", "did not get expected value");
-  mu_assert(list->count == 3, "did not get expected value");
+  mu_assert_equal("baz", list->last->value);
+  mu_assert_equal("foo", list->first->value);
+  mu_assert_equal("bar", list->last->prev->value);
+  mu_assert_equal(3, list->count);
 
   return NULL;
 }
@@ -47,23 +47,23 @@ char *test_pop() {
   list->push(list, "baz");
 
   void *value = list->pop(list);
-  mu_assert(value == "baz", "did not get expected value");
-  mu_assert(list->last->value == "bar", "did not get expected value");
-  mu_assert(list->count == 2, "did not get expected value");
+  mu_assert_equal("baz", value);
+  mu_assert_equal("bar", list->last->value);
+  mu_assert_equal(2, list->count);
 
   value = list->pop(list);
-  mu_assert(value == "bar", "did not get expected value");
-  mu_assert(list->last->value == "foo", "did not get expected value");
-  mu_assert(list->first->value == "foo", "did not get expected value");
-  mu_assert(list->count == 1, "did not get expected value");
+  mu_assert_equal("bar", value);
+  mu_assert_equal("foo", list->last->value);
+  mu_assert_equal("foo", list->first->value);
+  mu_assert_equal(1, list->count);
 
   value = list->pop(list);
-  mu_assert(value == "foo", "did not get expected value");
-  mu_assert(list->last == NULL, "did not get expected value");
-  mu_assert(list->first == NULL, "did not get expected value");
-  mu_assert(list->count == 0, "did not get expected value");
+  mu_assert_equal("foo", value);
+  mu_assert_equal(NULL, list->last);
+  mu_assert_equal(NULL, list->first);
+  mu_assert_equal(0, list->count);
 
-  mu_assert(list->pop(list) == NULL, "did not get expected value");
+  mu_assert_equal(NULL, list->pop(list));
 
   return NULL;
 }

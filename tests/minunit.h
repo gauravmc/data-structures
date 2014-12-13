@@ -6,12 +6,19 @@
 #include <lib/debug.h>
 #include <stdlib.h>
 
-#define log_failure(M, ...) fprintf(stderr, "[FAILED] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#define log_failure(M, ...) fprintf(stderr, "[FAILED] (%s:%d) %s\n", __FILE__, __LINE__, M, ##__VA_ARGS__)
 
 char *message = NULL;
 int tests_run;
 
 #define mu_assert(test, message) if (!(test)) { log_failure(message); return message; }
+#define mu_assert_equal(exp, act) {\
+  if (!(exp == act)) {\
+    message = "Expected did not match actual value";\
+    log_failure(message);\
+    return message;\
+  }\
+}
 #define mu_run_test(test) \
     message = test(); tests_run++; if (message) return message;
 
