@@ -16,10 +16,6 @@ typedef struct {
   void *(*pop)(void *self);
 } List;
 
-void List_push(void *self, void *value);
-void *List_pop(void *self);
 List *List_create();
-
-Node *Node_create();
 
 #endif

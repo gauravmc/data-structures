@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <lib/debug.h>
 
+Node *Node_create() {
+  Node *node = malloc(sizeof(Node));
+  node->prev = node->next = NULL;
+
+  return node;
+}
+
 void List_push(void *self, void *value) {
   List *list = self;
   Node *node = Node_create();
@@ -48,11 +55,4 @@ List *List_create() {
   list->pop = List_pop;
 
   return list;
-}
-
-Node *Node_create() {
-  Node *node = malloc(sizeof(Node));
-  node->prev = node->next = NULL;
-
-  return node;
 }
