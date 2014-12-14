@@ -42,15 +42,13 @@ void List_shift(void *self, void *value) {
 void *List_remove(List *list, Node *node) {
   check(list->count > 0 && list->first && list->last, "List is empty.");
 
-  Node *current = list->first;
-  do {
-    if (current == node) {
+  EACH_NODE(list) {
+    if (_node == node) {
       if(node->prev) node->prev->next = node->next;
       if(node->next) node->next->prev = node->prev;
       break;
     }
-    current = current->next;
-  } while(current);
+  }
 
   if(list->count > 1) {
     if(list->first == node) {
@@ -82,12 +80,11 @@ void *List_unshift(void *self) {
 
 void List_clear(void *self) {
   List *list = self;
-  Node *current = list->first;
-  do {
-    free(current);
+
+  EACH_NODE(list) {
+    free(_node);
     list->count--;
-    current = current->next;
-  } while(current);
+  }
 }
 
 List *List_create() {

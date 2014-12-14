@@ -21,4 +21,7 @@ typedef struct {
 
 List *List_create();
 
+#define EACH_NODE(L)\
+    for(Node *_node = L->first; _node != NULL; _node = _node->next)
+
 #endif
