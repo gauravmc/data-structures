@@ -14,6 +14,7 @@ typedef struct {
 
   void (*push)(void *self, void *value);
   void *(*pop)(void *self);
+  void (*shift)(void *self, void *value);
   void (*clear)(void *self);
 } List;
 

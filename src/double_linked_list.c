@@ -20,7 +20,6 @@ void List_push(void *self, void *value) {
     node->prev = list->last;
     list->last->next = node;
   }
-
   list->last = node;
   list->count++;
 }
@@ -47,6 +46,21 @@ void *List_pop(void *self) {
   }
 }
 
+void List_shift(void *self, void *value) {
+  List *list = self;
+  Node *node = Node_create();
+  node->value = value;
+
+  if(list->count == 0) {
+    list->last = node;
+  } else {
+    node->next = list->first;
+    list->first->prev = node;
+  }
+  list->first = node;
+  list->count++;
+}
+
 void List_clear(void *self) {
   List *list = self;
   Node *current = list->first;
@@ -63,6 +77,7 @@ List *List_create() {
   list->count = 0;
   list->push = List_push;
   list->pop = List_pop;
+  list->shift = List_shift;
   list->clear = List_clear;
 
   return list;

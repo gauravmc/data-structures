@@ -73,6 +73,36 @@ char *test_pop() {
   return NULL;
 }
 
+char *test_list_shift_value_to_blank_list() {
+  List *list = List_create();
+  char *value = "foobar";
+
+  list->shift(list, value);
+
+  mu_assert_equal(value, list->last->value);
+  mu_assert_equal(value, list->first->value);
+  mu_assert_equal(NULL, list->last->next);
+  mu_assert_equal(NULL, list->last->prev);
+  mu_assert_equal(1, list->count);
+
+  return NULL;
+}
+
+char *test_shift_multiple_values() {
+  List *list = List_create();
+
+  list->shift(list, "foo");
+  list->shift(list, "bar");
+  list->shift(list, "baz");
+
+  mu_assert_equal("foo", list->last->value);
+  mu_assert_equal("baz", list->first->value);
+  mu_assert_equal("bar", list->last->prev->value);
+  mu_assert_equal(3, list->count);
+
+  return NULL;
+}
+
 char *test_clear_list() {
   List *list = prepared_list();
 
@@ -87,6 +117,8 @@ char *all_tests() {
   mu_run_test(test_list_push_value_to_blank_list);
   mu_run_test(test_push_multiple_values);
   mu_run_test(test_pop);
+  mu_run_test(test_list_shift_value_to_blank_list);
+  mu_run_test(test_shift_multiple_values);
   mu_run_test(test_clear_list);
 
   return NULL;
