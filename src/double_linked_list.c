@@ -47,12 +47,23 @@ void *List_pop(void *self) {
   }
 }
 
+void List_clear(void *self) {
+  List *list = self;
+  Node *current = list->first;
+  do {
+    free(current);
+    list->count--;
+    current = current->next;
+  } while(current);
+}
+
 List *List_create() {
   List *list = malloc(sizeof(List));
   list->first = list->last = NULL;
   list->count = 0;
   list->push = List_push;
   list->pop = List_pop;
+  list->clear = List_clear;
 
   return list;
 }

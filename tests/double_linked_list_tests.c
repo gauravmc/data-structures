@@ -1,6 +1,14 @@
 #include "minunit.h"
 #include <double_linked_list.h>
 
+List *prepared_list() {
+  List *list = List_create();
+  list->push(list, "foo");
+  list->push(list, "bar");
+  list->push(list, "baz");
+  return list;
+}
+
 char *test_create() {
   List *list = List_create();
   mu_assert(list != NULL, "list should not be NULL");
@@ -41,10 +49,7 @@ char *test_push_multiple_values() {
 }
 
 char *test_pop() {
-  List *list = List_create();
-  list->push(list, "foo");
-  list->push(list, "bar");
-  list->push(list, "baz");
+  List *list = prepared_list();
 
   void *value = list->pop(list);
   mu_assert_equal("baz", value);
@@ -68,11 +73,21 @@ char *test_pop() {
   return NULL;
 }
 
+char *test_clear_list() {
+  List *list = prepared_list();
+
+  list->clear(list);
+  mu_assert_equal(0, list->count);
+
+  return NULL;
+}
+
 char *all_tests() {
   mu_run_test(test_create);
   mu_run_test(test_list_push_value_to_blank_list);
   mu_run_test(test_push_multiple_values);
   mu_run_test(test_pop);
+  mu_run_test(test_clear_list);
 
   return NULL;
 }
