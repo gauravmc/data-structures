@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include <lib/debug.h>
 
-Node *Node_create() {
+Node *Node_create(void *value) {
   Node *node = malloc(sizeof(Node));
   node->prev = node->next = NULL;
+  node->value = value;
 
   return node;
 }
 
 void List_push(void *self, void *value) {
   List *list = self;
-  Node *node = Node_create();
-  node->value = value;
+  Node *node = Node_create(value);
 
   if(list->count == 0) {
     list->first = node;
@@ -48,8 +48,7 @@ void *List_pop(void *self) {
 
 void List_shift(void *self, void *value) {
   List *list = self;
-  Node *node = Node_create();
-  node->value = value;
+  Node *node = Node_create(value);
 
   if(list->count == 0) {
     list->last = node;
