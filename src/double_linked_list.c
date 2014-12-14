@@ -1,5 +1,6 @@
 #include <double_linked_list.h>
 #include <stdlib.h>
+#include <assert.h>
 #include <lib/debug.h>
 
 Node *Node_create(void *value) {
@@ -24,28 +25,6 @@ void List_push(void *self, void *value) {
   list->count++;
 }
 
-void *List_pop(void *self) {
-  List *list = self;
-
-  if(list->count > 0) {
-    Node *old_last = list->last;
-
-    if(list->count > 1) {
-      list->last = old_last->prev;
-    } else {
-      list->first = list->last = NULL;
-    }
-
-    void *value = old_last->value;
-    free(old_last);
-    list->count--;
-
-    return value;
-  } else {
-    return NULL;
-  }
-}
-
 void List_shift(void *self, void *value) {
   List *list = self;
   Node *node = Node_create(value);
@@ -58,6 +37,47 @@ void List_shift(void *self, void *value) {
   }
   list->first = node;
   list->count++;
+}
+
+void *List_remove(List *list, Node *node) {
+  check(list->count > 0 && list->first && list->last, "List is empty.");
+
+  Node *current = list->first;
+  do {
+    if (current == node) {
+      if(node->prev) node->prev->next = node->next;
+      if(node->next) node->next->prev = node->prev;
+      break;
+    }
+    current = current->next;
+  } while(current);
+
+  if(list->count > 1) {
+    if(list->first == node) {
+      list->first = node->next;
+    } else if(list->last == node) {
+      list->last = node->prev;
+    }
+  } else {
+    list->first = list->last = NULL;
+  }
+
+  void *value = node->value;
+  free(node);
+  list->count--;
+  return value;
+error:
+  return NULL;
+}
+
+void *List_pop(void *self) {
+  List *list = self;
+  return List_remove(list, list->last);
+}
+
+void *List_unshift(void *self) {
+  List *list = self;
+  return List_remove(list, list->first);
 }
 
 void List_clear(void *self) {
@@ -77,6 +97,7 @@ List *List_create() {
   list->push = List_push;
   list->pop = List_pop;
   list->shift = List_shift;
+  list->unshift = List_unshift;
   list->clear = List_clear;
 
   return list;
