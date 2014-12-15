@@ -5,7 +5,7 @@ PREFIX?=/usr/local
 SOURCES=$(wildcard src/**/*.c src/*.c)
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
-TEST_SRC=$(wildcard tests/*_tests.c)
+TEST_SRC=$(wildcard tests/*_test.c)
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
 TARGET=build/libdata_structures.a
@@ -31,8 +31,8 @@ build:
 
 # The Unit Tests
 .PHONY: tests
-tests:
-	$(CC) $(CFLAGS) $(TEST_SRC) $(LDLIBS) -o $(TESTS) $(TARGET)
+tests: CFLAGS += $(TARGET)
+tests: $(TESTS)
 	sh ./tests/runtests.sh
 
 valgrind:
