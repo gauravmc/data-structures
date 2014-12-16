@@ -1,5 +1,4 @@
 #include "list_algorithms.h"
 
-char *foo() {
-  return "foo";
+void List_modified_bubble_sort(List *list) {
 }

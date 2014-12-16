@@ -25,7 +25,7 @@ int tests_run;
 #define RUN_TESTS(name) int main() {\
   char *result = name();\
   if (result == 0) {\
-    printf("ALL TESTS PASSED\n");\
+    printf("%s ALL TESTS PASSED\n", __FILE__);\
   }\
   printf("Tests run: %d\n", tests_run);\
   exit(result != 0);\
