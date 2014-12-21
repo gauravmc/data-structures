@@ -133,6 +133,22 @@ char *test_clear_list() {
   return NULL;
 }
 
+char *test_each_node_macro() {
+  char *words[] = {"gaurav", "chande", "12345", "abcd", "abcd", "wxyz", "4444"};
+  List *list = List_create();
+  for(int i=0; i < 7; i++) {
+    list->push(list, words[i]);
+  }
+
+  int index = 0;
+  EACH_NODE(list) {
+    mu_assert_equal(words[index], _node->value);
+    index++;
+  }
+
+  return NULL;
+}
+
 char *all_tests() {
   mu_run_test(test_create);
   mu_run_test(test_list_push_value_to_blank_list);
@@ -142,6 +158,7 @@ char *all_tests() {
   mu_run_test(test_shift_multiple_values);
   mu_run_test(test_unshift);
   mu_run_test(test_clear_list);
+  mu_run_test(test_each_node_macro);
 
   return NULL;
 }

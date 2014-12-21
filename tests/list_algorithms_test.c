@@ -5,7 +5,7 @@
 List *prepared_list() {
   char *words[] = {"gaurav", "chande", "12345", "abcd", "abcd", "wxyz", "4444"};
   List *list = List_create();
-  for(int i = 0; i < 6; i++) {
+  for(int i = 0; i < 7; i++) {
     list->push(list, words[i]);
   }
   return list;
