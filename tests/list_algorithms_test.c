@@ -14,6 +14,10 @@ List *prepared_list() {
 int is_sorted(List *list) {
   Node *cur = NULL;
   Node *next = NULL;
+  int count = 0;
+
+  EACH_NODE(list) { count++; }
+  if(count != list->count) return 0;
 
   EACH_NODE(list) {
     cur = _node;
@@ -31,7 +35,8 @@ int is_sorted(List *list) {
 char *test_modified_bubble_sort() {
   List *list = prepared_list();
   List_modified_bubble_sort(list);
-  mu_assert(is_sorted(list), "List was not sorted as alphabetically.");
+
+  mu_assert(is_sorted(list), "List was not alphabetically sorted.");
 
   return NULL;
 }
