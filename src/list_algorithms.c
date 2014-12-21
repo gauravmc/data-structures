@@ -16,19 +16,15 @@ void swap(Node *cur, Node *next, List *list) {
 }
 
 void List_modified_bubble_sort(List *list) {
-  Node *cur = NULL;
-  Node *next = NULL;
   int swapped;
 
   do {
     swapped = 0;
 
     EACH_NODE(list) {
-      cur = _node;
-      next = _node->next;
-      if (cur != NULL && next != NULL) {
-        if (strcmp(cur->value, next->value) > 0) {
-          swap(cur, next, list);
+      if (_node != NULL && _node->next != NULL) {
+        if (strcmp(_node->value, _node->next->value) > 0) {
+          swap(_node, _node->next, list);
           swapped = 1;
         }
       }
