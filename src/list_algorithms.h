@@ -4,5 +4,6 @@
 #include "double_linked_list.h"
 
 void List_modified_bubble_sort(List *list);
+List *List_merge_sort(List *list);
 
 #endif

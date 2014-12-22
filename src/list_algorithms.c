@@ -1,6 +1,6 @@
 #include "list_algorithms.h"
 #include "stdio.h"
-#include "string.h"
+#include "lib/debug.h"
 
 void swap(Node *cur, Node *next, List *list) {
   next->prev = cur->prev;
@@ -30,4 +30,49 @@ void List_modified_bubble_sort(List *list) {
       }
     }
   } while(swapped);
+}
+
+List *merge(List *left, List *right) {
+  List *result = List_create();
+
+  while(left->count > 0 || right->count > 0) {
+    if(left->count > 0 && right->count > 0) {
+      if(strcmp(left->first->value, right->first->value) <= 0) {
+        result->push(result, left->unshift(left));
+      } else {
+        result->push(result, right->unshift(right));
+      }
+    } else if(left->count > 0) {
+      result->push(result, left->unshift(left));
+    } else if(right->count > 0) {
+      result->push(result, right->unshift(right));
+    }
+  }
+
+  return result;
+}
+
+List *List_merge_sort(List *list) {
+  if(list->count <= 1) return list;
+
+  List *left = List_create();
+  List *right = List_create();
+  int mid = list->count/2;
+
+  int index = 0;
+  EACH_NODE(list) {
+    if(index == mid) break;
+    left->push(left, _node->value);
+    index++;
+  }
+
+  index = 0;
+  EACH_NODE(list) {
+    if(index >= mid) right->push(right, _node->value);
+    index++;
+  }
+
+  left = List_merge_sort(left);
+  right = List_merge_sort(right);
+  return merge(left, right);
 }

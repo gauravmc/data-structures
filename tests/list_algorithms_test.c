@@ -47,8 +47,28 @@ char *test_modified_bubble_sort() {
   return NULL;
 }
 
+char *test_merge_sort() {
+  List *list = prepared_list();
+
+  // list that needs sorting
+  list = List_merge_sort(list);
+  mu_assert(is_sorted(list), "List was not alphabetically sorted.");
+
+  // already sorted list
+  list = List_merge_sort(list);
+  mu_assert(is_sorted(list), "List was not alphabetically sorted.");
+
+  // empty list
+  list = List_create();
+  list = List_merge_sort(list);
+  mu_assert(is_sorted(list), "List was not alphabetically sorted.");
+
+  return NULL;
+}
+
 char *all_tests() {
   mu_run_test(test_modified_bubble_sort);
+  mu_run_test(test_merge_sort);
 
   return NULL;
 }
