@@ -2,7 +2,7 @@
 #include "stdio.h"
 #include "lib/debug.h"
 
-void swap(Node *cur, Node *next) {
+void swap_nodes(Node *cur, Node *next) {
   void *temp = cur->value;
   cur->value = next->value;
   next->value = temp;
@@ -17,7 +17,7 @@ void List_modified_bubble_sort(List *list) {
     EACH_NODE(list) {
       if (_node != NULL && _node->next != NULL) {
         if (strcmp(_node->value, _node->next->value) > 0) {
-          swap(_node, _node->next);
+          swap_nodes(_node, _node->next);
           swapped = 1;
         }
       }
@@ -25,7 +25,7 @@ void List_modified_bubble_sort(List *list) {
   } while(swapped);
 }
 
-List *merge(List *left, List *right) {
+List *merge_lists(List *left, List *right) {
   List *result = List_create();
 
   while(left->count > 0 || right->count > 0) {
@@ -65,5 +65,5 @@ List *List_merge_sort(List *list) {
 
   left = List_merge_sort(left);
   right = List_merge_sort(right);
-  return merge(left, right);
+  return merge_lists(left, right);
 }

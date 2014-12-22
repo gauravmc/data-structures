@@ -2,10 +2,9 @@
 #include "list_algorithms.h"
 #include "assert.h"
 
-List *prepared_list() {
-  char *words[] = {"gaurav", "chande", "12345", "abcd", "abcd", "wxyz", "4444"};
+List *prepare_list(char *words[], int len) {
   List *list = List_create();
-  for(int i = 0; i < 7; i++) {
+  for(int i = 0; i < len; i++) {
     list->push(list, words[i]);
   }
   return list;
@@ -29,9 +28,14 @@ int is_sorted(List *list) {
 }
 
 char *test_modified_bubble_sort() {
-  List *list = prepared_list();
-
   // list that needs sorting
+  char *words[] = {"gaurav", "chande", "12345", "abcd", "abcd", "wxyz", "4444"};
+  List *list = prepare_list(words, 7);
+  List_modified_bubble_sort(list);
+  mu_assert(is_sorted(list), "List was not alphabetically sorted.");
+
+  char *words2[] = {"6", "5", "3", "1", "8", "7", "2", "4"};
+  list = prepare_list(words2, 8);
   List_modified_bubble_sort(list);
   mu_assert(is_sorted(list), "List was not alphabetically sorted.");
 
@@ -48,9 +52,14 @@ char *test_modified_bubble_sort() {
 }
 
 char *test_merge_sort() {
-  List *list = prepared_list();
-
   // list that needs sorting
+  char *words[] = {"gaurav", "chande", "12345", "abcd", "abcd", "wxyz", "4444"};
+  List *list = prepare_list(words, 7);
+  list = List_merge_sort(list);
+  mu_assert(is_sorted(list), "List was not alphabetically sorted.");
+
+  char *words2[] = {"6", "5", "3", "1", "8", "7", "2", "4"};
+  list = prepare_list(words2, 8);
   list = List_merge_sort(list);
   mu_assert(is_sorted(list), "List was not alphabetically sorted.");
 
