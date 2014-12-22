@@ -78,7 +78,7 @@ void *List_unshift(void *self) {
   return List_remove(list, list->first);
 }
 
-void List_clear(void *self) {
+void List_empty(void *self) {
   List *list = self;
 
   EACH_NODE(list) {
@@ -95,7 +95,12 @@ List *List_create() {
   list->pop = List_pop;
   list->shift = List_shift;
   list->unshift = List_unshift;
-  list->clear = List_clear;
+  list->empty = List_empty;
 
   return list;
+}
+
+void List_destroy(List *list) {
+  list->empty(list);
+  free(list);
 }

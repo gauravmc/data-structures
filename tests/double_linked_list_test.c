@@ -124,11 +124,18 @@ char *test_unshift() {
   return NULL;
 }
 
-char *test_clear_list() {
+char *test_empty_list() {
   List *list = prepared_list();
 
-  list->clear(list);
+  list->empty(list);
   mu_assert_equal(0, list->count);
+
+  return NULL;
+}
+
+char *test_destroy_list() {
+  List *list = prepared_list();
+  List_destroy(list);
 
   return NULL;
 }
@@ -157,8 +164,9 @@ char *all_tests() {
   mu_run_test(test_list_shift_value_to_blank_list);
   mu_run_test(test_shift_multiple_values);
   mu_run_test(test_unshift);
-  mu_run_test(test_clear_list);
+  mu_run_test(test_empty_list);
   mu_run_test(test_each_node_macro);
+  mu_run_test(test_destroy_list);
 
   return NULL;
 }

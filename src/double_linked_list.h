@@ -16,10 +16,11 @@ typedef struct {
   void *(*pop)(void *self);
   void (*shift)(void *self, void *value);
   void *(*unshift)(void *self);
-  void (*clear)(void *self);
+  void (*empty)(void *self);
 } List;
 
 List *List_create();
+void List_destroy(List *list);
 
 #define EACH_NODE(L)\
     for(Node *_node = L->first; _node != NULL; _node = _node->next)

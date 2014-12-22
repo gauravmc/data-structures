@@ -42,6 +42,8 @@ List *merge(List *left, List *right) {
     }
   }
 
+  List_destroy(left);
+  List_destroy(right);
   return result;
 }
 
