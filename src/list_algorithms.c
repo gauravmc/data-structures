@@ -59,17 +59,13 @@ List *List_merge_sort(List *list) {
   List *right = List_create();
   int mid = list->count/2;
 
-  int index = 0;
   EACH_NODE(list) {
-    if(index == mid) break;
-    left->push(left, _node->value);
-    index++;
-  }
-
-  index = 0;
-  EACH_NODE(list) {
-    if(index >= mid) right->push(right, _node->value);
-    index++;
+    if(mid > 0) {
+      right->push(right, _node->value);
+    } else {
+      left->push(left, _node->value);
+    }
+    mid--;
   }
 
   left = List_merge_sort(left);
