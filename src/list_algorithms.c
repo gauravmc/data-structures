@@ -2,17 +2,10 @@
 #include "stdio.h"
 #include "lib/debug.h"
 
-void swap(Node *cur, Node *next, List *list) {
-  next->prev = cur->prev;
-  cur->next = next->next;
-  next->next = cur;
-  cur->prev = next;
-
-  if(next->prev) next->prev->next = next;
-  if(cur->next) cur->next->prev = cur;
-
-  if(list->first == cur) list->first = next;
-  if(list->last == next) list->last = cur;
+void swap(Node *cur, Node *next) {
+  void *temp = cur->value;
+  cur->value = next->value;
+  next->value = temp;
 }
 
 void List_modified_bubble_sort(List *list) {
@@ -24,7 +17,7 @@ void List_modified_bubble_sort(List *list) {
     EACH_NODE(list) {
       if (_node != NULL && _node->next != NULL) {
         if (strcmp(_node->value, _node->next->value) > 0) {
-          swap(_node, _node->next, list);
+          swap(_node, _node->next);
           swapped = 1;
         }
       }
