@@ -1,6 +1,5 @@
 #include "minunit.h"
 #include "list_algorithms.h"
-#include "assert.h"
 
 List *prepare_list(char *words[], int len) {
   List *list = List_create();
