@@ -11,36 +11,36 @@ typedef struct DArray {
 } DArray;
 
 DArray *DArray_create(size_t element_size, int max);
-void DArray_clear(DArray *array);
-void DArray_destroy(DArray *array);
+void DArray_clear(DArray *darray);
+void DArray_destroy(DArray *darray);
 
-static inline void DArray_set(DArray *array, int index, void *el) {
-  check(index < array->max, "DArray attempt to set past max");
-  if(index > array->end) array->end = index;
-  array->contents[index] = el;
+static inline void DArray_set(DArray *darray, int index, void *el) {
+  check(index < darray->max, "DArray attempt to set past max");
+  if(index > darray->end) darray->end = index;
+  darray->contents[index] = el;
 error:
   return;
 }
 
-static inline void *DArray_get(DArray *array, int index) {
-  check(index < array->max, "DArray attempt to get past max");
-  return array->contents[index];
+static inline void *DArray_get(DArray *darray, int index) {
+  check(index < darray->max, "DArray attempt to get past max");
+  return darray->contents[index];
 error:
   return NULL;
 }
 
-static inline void *DArray_remove(DArray *array, int index) {
-  check(index < array->max, "DArray attempt to remove past max");
-  void *el = array->contents[index];
-  array->contents[index] = NULL;
+static inline void *DArray_remove(DArray *darray, int index) {
+  check(index < darray->max, "DArray attempt to remove past max");
+  void *el = darray->contents[index];
+  darray->contents[index] = NULL;
   return el;
 error:
   return NULL;
 }
 
-static inline void *DArray_new(DArray *array) {
-  check(array->element_size > 0, "0 size dynamic array");
-  return malloc(array->element_size);
+static inline void *DArray_new(DArray *darray) {
+  check(darray->element_size > 0, "0 size dynamic darray");
+  return malloc(darray->element_size);
 error:
   return NULL;
 }
