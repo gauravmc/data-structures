@@ -7,12 +7,17 @@ typedef struct DArray {
   int end;
   int max;
   size_t element_size;
+  size_t expand_rate;
   void **contents;
 } DArray;
 
 DArray *DArray_create(size_t element_size, int max);
 void DArray_clear(DArray *darray);
 void DArray_destroy(DArray *darray);
+void DArray_expand(DArray *darray);
+void DArray_contract(DArray *darray);
+void DArray_push(DArray *darray, void *el);
+void *DArray_pop(DArray *darray);
 
 static inline void DArray_set(DArray *darray, int index, void *el) {
   check(index < darray->max, "DArray attempt to set past max");
