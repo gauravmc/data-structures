@@ -23,6 +23,8 @@ char *test_get_set_remove() {
   int *val2 = DArray_remove(darray, 1);
   mu_assert_equal(50, *val2);
   mu_assert_equal(NULL, darray->contents[1]);
+
+  return NULL;
 }
 
 char *test_clear_destroy() {
